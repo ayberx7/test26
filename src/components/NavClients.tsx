@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Car, User, LogOut, CalendarCheck, ChevronDown, Menu, X, Settings, Clock } from 'lucide-react';
+import logoPic from '../../asset/logo.jpeg';
 
 export default function ClientNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,16 +73,16 @@ export default function ClientNavbar() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           
-          {/* LOGO */}
-          <Link to="/" className="flex items-center z-[110]" onClick={() => setIsMobileMenuOpen(false)}>
-            <div className="h-10 md:h-12 w-auto flex items-center justify-center overflow-hidden transition-all duration-500">
-              <img 
-                src="../../asset/logo.jpeg" 
-                alt="LuxeDrive Logo" 
-                className="h-full w-auto object-contain"
-              />
-            </div>
-          </Link>
+         {/* LOGO */}
+                   <Link to="/" className="flex items-center z-[110]" onClick={() => setIsMobileMenuOpen(false)}>
+                     <div className="h-10 md:h-12 w-auto flex items-center justify-center overflow-hidden transition-all duration-500">
+                       <img 
+                         src={logoPic}
+                         alt="LuxeDrive Logo" 
+                         className="h-full w-auto object-contain"
+                       />
+                     </div>
+                   </Link>
 
           {/* DESKTOP NAVIGATION */}
           <div className="hidden lg:flex items-center gap-10">
