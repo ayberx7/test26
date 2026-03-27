@@ -133,10 +133,7 @@ export default function Navbar() {
                     <UserPlus size={16} />
                     <span className="font-bold text-[var(--text-main)]">Register</span>
                   </Link>
-                  <Link to="/admin" className="flex items-center gap-3 px-4 py-3 text-sm text-[var(--text-muted)] hover:bg-blue-600/10 hover:text-blue-500 rounded-xl transition-all">
-                    <LayoutDashboard size={16} />
-                    <span className="font-bold text-[var(--text-main)]">Admin Dashboard</span>
-                  </Link>
+                  
                 </div>
               </div>
             </div>
@@ -198,9 +195,7 @@ export default function Navbar() {
             <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-xl font-bold text-[var(--text-muted)] hover:text-blue-500 transition-colors">
               <UserPlus size={20} /> Register
             </Link>
-            <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-xl font-bold text-[var(--text-muted)] hover:text-blue-500 transition-colors">
-              <LayoutDashboard size={20} /> Admin Dashboard
-            </Link>
+            
           </div>
 
           <div className="flex flex-col gap-4 mt-4 mb-10">
