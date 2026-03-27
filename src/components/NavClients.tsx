@@ -71,7 +71,6 @@ export default function ClientNavbar() {
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-<<<<<<< HEAD
           
          {/* LOGO */}
                    <Link to="/" className="flex items-center z-[110]" onClick={() => setIsMobileMenuOpen(false)}>
@@ -83,19 +82,6 @@ export default function ClientNavbar() {
                        />
                      </div>
                    </Link>
-=======
-
-          {/* LOGO */}
-          <Link to="/" className="flex items-center z-[110]" onClick={() => setIsMobileMenuOpen(false)}>
-            <div className="h-10 md:h-12 w-auto flex items-center justify-center overflow-hidden transition-all duration-500">
-              <img
-                src="../../asset/logo.jpeg"
-                alt="LuxeDrive Logo"
-                className="h-full w-auto object-contain"
-              />
-            </div>
-          </Link>
->>>>>>> 8394817ae4614874b40170fba338a639cdbab2c7
 
           {/* DESKTOP NAVIGATION */}
           <div className="hidden lg:flex items-center gap-10">
