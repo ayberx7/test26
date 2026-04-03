@@ -18,6 +18,7 @@ import History from './pages/History';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import About from './pages/About';
+import Services from './pages/Services';
 /**
  * ScrollToTop Component
  * Resets the scroll position to the top of the page on every navigation.
@@ -96,6 +97,7 @@ export default function App() {
           <Route path="/car/:id" element={<CarDetails />} />
           {/* 2. Add this new route */}
           <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
           {/* Authentication */}
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
