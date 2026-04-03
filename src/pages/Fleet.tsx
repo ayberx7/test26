@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { X, ArrowRight, Shield, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import DarkVeil from './DarkVeil';
 
 // Assets
 import trocPic from '../../asset/troc.jpeg';
@@ -52,77 +53,93 @@ export default function Fleet() {
   }, [loading, fleetData]);
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white pt-32 pb-20 px-6 font-sans">
-      <div className="max-w-7xl mx-auto mb-16 text-center reveal" style={{ opacity: 0 }}>
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-white">
-          The <span className="text-[#00d2ff] italic">Elite</span> Collection
-        </h1>
-        <p className="text-slate-400 text-lg max-w-2xl mx-auto font-light">
-          Precision-engineered performance. Select a vehicle to view detailed specifications and availability.
-        </p>
+    <div className="relative min-h-screen bg-[#020617] text-white font-sans">
+      
+      {/* DarkVeil Background Effect (Fixed so it stays while scrolling) */}
+      <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
+        <DarkVeil
+          hueShift={24}
+          noiseIntensity={0.08}
+          scanlineIntensity={0.48}
+          speed={0.8}
+          scanlineFrequency={2}
+          warpAmount={0}
+        />
       </div>
 
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00d2ff]"></div>
+      {/* Main Content Wrapper (z-10 ensures it sits above the background) */}
+      <div className="relative z-10 pt-32 pb-20 px-6">
+        <div className="max-w-7xl mx-auto mb-16 text-center reveal" style={{ opacity: 0 }}>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-white">
+            The <span className="text-[#00d2ff] italic">Elite</span> Collection
+          </h1>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto font-light">
+            Precision-engineered performance. Select a vehicle to view detailed specifications and availability.
+          </p>
         </div>
-      ) : (
-        <div ref={gridRef} className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.isArray(fleetData) && fleetData.map((car: any) => {
-            const displayPrice = car.price || `${car.pricePerDay}dh`;
-            const displayEngine = car.specs?.fuel || car.engine || 'Petrol';
-            const displayTrans = car.specs?.transmission || car.trans || 'Auto';
-            const displaySeats = car.specs?.seats || car.seats || '4';
 
-            return (
-              <div
-                key={car.id}
-                onClick={() => setSelectedCar({ ...car, displayPrice })}
-                style={{ opacity: 0 }}
-                className="reveal group bg-[#0f172a] border border-white/10 rounded-2xl overflow-hidden hover:border-[#00d2ff]/50 transition-all duration-300 cursor-pointer flex flex-col shadow-lg hover:-translate-y-1"
-              >
-                <div className="relative h-56 overflow-hidden bg-slate-800">
-                <img 
-                  src={car.image?.startsWith('http') || car.image?.startsWith('data:') ? car.image : `http://127.0.0.1:8080${car.image}`} 
-                  alt={car.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-80" />
-              </div>
-                <div className="p-6 flex-1 flex flex-col z-10 -mt-2">
-                  <div className="flex justify-between items-start mb-6">
-                    <div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-[#00d2ff] transition-colors">{car.name}</h3>
-                      <p className="text-xs text-slate-400 uppercase tracking-widest mt-1 font-semibold">{car.type} • {car.year || '2024'}</p>
-                    </div>
-                    <div className="bg-white/5 p-2 rounded-lg border border-white/10">
-                      <Shield size={16} className="text-[#00d2ff]" />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-4 py-4 border-t border-white/10">
-                    <SpecRow label="Powertrain" value={displayEngine} />
-                    <SpecRow label="Transmission" value={displayTrans} />
-                    <SpecRow label="Body Type" value={car.type} />
-                    <SpecRow label="Seating" value={`${displaySeats} Adults`} />
-                  </div>
-                  <div className="mt-auto pt-6 border-t border-white/10 flex items-center justify-between">
-                    <div>
-                      <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Starting at</p>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-2xl font-bold text-white">{displayPrice}</span>
-                        <span className="text-slate-500 text-xs">/day</span>
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00d2ff]"></div>
+          </div>
+        ) : (
+          <div ref={gridRef} className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.isArray(fleetData) && fleetData.map((car: any) => {
+              const displayPrice = car.price || `${car.pricePerDay}dh`;
+              const displayEngine = car.specs?.fuel || car.engine || 'Petrol';
+              const displayTrans = car.specs?.transmission || car.trans || 'Auto';
+              const displaySeats = car.specs?.seats || car.seats || '4';
+
+              return (
+                <div
+                  key={car.id}
+                  onClick={() => setSelectedCar({ ...car, displayPrice })}
+                  style={{ opacity: 0 }}
+                  className="reveal group bg-[#0f172a]/80 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-[#00d2ff]/50 transition-all duration-300 cursor-pointer flex flex-col shadow-lg hover:-translate-y-1"
+                >
+                  <div className="relative h-56 overflow-hidden bg-slate-800">
+                  <img 
+                    src={car.image?.startsWith('http') || car.image?.startsWith('data:') ? car.image : `http://127.0.0.1:8080${car.image}`} 
+                    alt={car.name} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-80" />
+                </div>
+                  <div className="p-6 flex-1 flex flex-col z-10 -mt-2">
+                    <div className="flex justify-between items-start mb-6">
+                      <div>
+                        <h3 className="text-xl font-bold text-white group-hover:text-[#00d2ff] transition-colors">{car.name}</h3>
+                        <p className="text-xs text-slate-400 uppercase tracking-widest mt-1 font-semibold">{car.type} • {car.year || '2024'}</p>
+                      </div>
+                      <div className="bg-white/5 p-2 rounded-lg border border-white/10">
+                        <Shield size={16} className="text-[#00d2ff]" />
                       </div>
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-[#00d2ff] flex items-center justify-center text-[#020617] transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(0,210,255,0.4)]">
-                      <ArrowRight size={20} strokeWidth={3} />
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-4 py-4 border-t border-white/10">
+                      <SpecRow label="Powertrain" value={displayEngine} />
+                      <SpecRow label="Transmission" value={displayTrans} />
+                      <SpecRow label="Body Type" value={car.type} />
+                      <SpecRow label="Seating" value={`${displaySeats} Adults`} />
+                    </div>
+                    <div className="mt-auto pt-6 border-t border-white/10 flex items-center justify-between">
+                      <div>
+                        <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Starting at</p>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-2xl font-bold text-white">{displayPrice}</span>
+                          <span className="text-slate-500 text-xs">/day</span>
+                        </div>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-[#00d2ff] flex items-center justify-center text-[#020617] transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(0,210,255,0.4)]">
+                        <ArrowRight size={20} strokeWidth={3} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
-      )}
+              )
+            })}
+          </div>
+        )}
+      </div>
       {selectedCar && <BookingModal car={selectedCar} onClose={() => setSelectedCar(null)} />}
     </div>
   );
@@ -165,7 +182,6 @@ function BookingModal({ car, onClose }: { car: any, onClose: () => void }) {
       carImage: car.image
     };
 
-    // CALL BACKEND API TO SAVE IN DATABASE
     fetch('http://127.0.0.1:8080/api/reservations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -174,7 +190,6 @@ function BookingModal({ car, onClose }: { car: any, onClose: () => void }) {
       .then(async (response) => {
         const data = await response.json();
         if (response.ok) {
-          // ALSO KEEP IN LOCAL STORAGE FOR INSTANT UI UPDATES OR AS CACHE
           const newBooking = {
             id: data.id,
             userEmail: user.email,
