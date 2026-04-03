@@ -9,8 +9,7 @@ import Hero from '../components/Hero';
 import BookingForm from '../components/BookingForm';
 import About from '../components/About';
 import Testimonials from '../components/Testimonials';
-import Contact from '../components/Contact';
-import FloatingLines from '../components/FloatingLines'; // Double check this path!
+import Contact from '../components/Contact'; 
 
 // ==========================================
 // 1. Ultra-Premium Cinematic Card (Merged)
@@ -172,20 +171,8 @@ export default function Home() {
   return (
     <main className="bg-[#020617] min-h-screen selection:bg-[#00d2ff]/30 selection:text-white overflow-x-hidden relative">
       
-      {/* FloatingLines Background Effect */}
-      <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
-        <FloatingLines 
-          enabledWaves={["top", "bottom"]}
-          lineCount={5}
-          lineDistance={5}
-          bendRadius={5}
-          bendStrength={-0.5}
-          interactive={true}
-          parallax={true}
-        />
-      </div>
+      
 
-      {/* FIXED: Removed the 'flex flex-col' here that was breaking GSAP */}
       <div className="relative z-10 block">
         <div id="top"></div> 
         <Hero />

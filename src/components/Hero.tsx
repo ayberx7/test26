@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 import { CARS } from '../types';
-import LiquidEther from './LiquidEther';
+import FloatingLines from './FloatingLines';
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -81,34 +81,27 @@ export default function Hero() {
   const mainCar = CARS[0];
   const gridCars = CARS.slice(1, 4);
 
+  // Note: Changed bg-slate-950 to bg-[#020617] to match the rest of your app's theme!
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-slate-950 overflow-hidden flex items-center justify-center">
+    <section ref={sectionRef} className="relative min-h-screen bg-[#020617] overflow-hidden flex items-center justify-center">
       
-      {/* LiquidEther Background Effect */}
+      {/* FloatingLines Background Effect */}
       <div className="absolute inset-0 -z-40">
-        <LiquidEther
-          colors={[ '#5227FF', '#FF9FFC', '#B19EEF' ]}
-          mouseForce={8}
-          cursorSize={100}
-          isViscous
-          viscous={30}
-          iterationsViscous={32}
-          iterationsPoisson={32}
-          resolution={0.5}
-          isBounce={false}
-          autoDemo
-          autoSpeed={0.5}
-          autoIntensity={2.2}
-          takeoverDuration={0.25}
-          autoResumeDelay={3000}
-          autoRampDuration={0.6}
-        
+        <FloatingLines 
+          enabledWaves={["top", "bottom"]}
+          lineCount={5}
+          lineDistance={5}
+          bendRadius={5}
+          bendStrength={-0.5}
+          interactive={true}
+          parallax={true}
         />
       </div>
+      
       {/* Semi-transparent overlay to ensure text readability */}
       <div className="absolute inset-0 bg-[#000000]/60 -z-30" />
       <div className="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-600/10 blur-[120px] -z-20" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-indigo-900/10 blur-[120px] -z-20" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#00d2ff]/10 blur-[120px] -z-20" />
 
       {/* Main Image */}
       <div 
@@ -143,7 +136,7 @@ export default function Hero() {
       >
         <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-white tracking-tight leading-[0.9] mb-6">
           The most powerful <br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 italic">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] to-blue-600 italic">
             driving experience.
           </span>
         </h1>
@@ -154,7 +147,7 @@ export default function Hero() {
         
         <Link 
           to="/fleet"
-          className="group flex items-center gap-3 rounded-full bg-white px-8 py-4 font-bold text-slate-950 hover:bg-blue-50 transition-all duration-300 shadow-xl"
+          className="group flex items-center gap-3 rounded-full bg-white px-8 py-4 font-bold text-[#020617] hover:bg-[#00d2ff] transition-all duration-300 shadow-[0_0_20px_rgba(0,210,255,0.2)] hover:shadow-[0_0_30px_rgba(0,210,255,0.4)]"
         >
           <span>Explore Fleet</span>
           <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

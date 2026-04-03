@@ -3,13 +3,17 @@ import Navbar from '../components/Navbar';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DarkVeil from './DarkVeil';
+import rangePic from '../../asset/range.avif';
+import trocPic from '../../asset/troc.jpeg';
+import tucsonPic from '../../asset/tucson.jpeg';
+import golfPic from '../../asset/golf.jpg';
 
 // Dynamic data for the new Interactive Process section
 const PROCESS_STEPS = [
-  { id: '01', title: 'The Request', desc: 'Submit your preferences through our secure portal or dedicated concierge line.', img: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=1000&auto=format&fit=crop' },
-  { id: '02', title: 'The Curation', desc: 'Our specialists match your profile with the perfect vehicle, ensuring exact specifications.', img: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1000&auto=format&fit=crop' },
-  { id: '03', title: 'The Delivery', desc: 'White-glove drop-off at your hotel, airport, or private residence. Fully detailed and fueled.', img: 'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=1000&auto=format&fit=crop' },
-  { id: '04', title: 'The Drive', desc: 'Experience absolute freedom. 24/7 support remains invisible but instantly available.', img: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?q=80&w=1000&auto=format&fit=crop' },
+  { id: '01', title: 'The Request', desc: 'Submit your preferences through our secure portal or dedicated concierge line.', img: rangePic },
+  { id: '02', title: 'The Curation', desc: 'Our specialists match your profile with the perfect vehicle, ensuring exact specifications.', img: trocPic },
+  { id: '03', title: 'The Delivery', desc: 'White-glove drop-off at your hotel, airport, or private residence. Fully detailed and fueled.', img: tucsonPic },
+  { id: '04', title: 'The Drive', desc: 'Experience absolute freedom. 24/7 support remains invisible but instantly available.', img: golfPic },
 ];
 
 const About: React.FC = () => {
@@ -237,10 +241,10 @@ const About: React.FC = () => {
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">The Luxe Standard</h2>
               <p className="text-gray-400 font-light max-w-xl">Our commitment to ensuring your experience is completely flawless.</p>
             </div>
-            <button className="hidden md:flex mt-8 px-8 py-4 bg-[#00d2ff] text-[#020617] font-black text-sm uppercase tracking-widest rounded-xl hover:brightness-110 hover:scale-[1.02] transition-transform duration-300 items-center gap-3">
+            <a href="/fleet" className="hidden md:flex mt-8 px-8 py-4 bg-[#00d2ff] text-[#020617] font-black text-sm uppercase tracking-widest rounded-xl hover:brightness-110 hover:scale-[1.02] transition-transform duration-300 items-center gap-3">
               Explore The Fleet
               <span>→</span>
-            </button>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

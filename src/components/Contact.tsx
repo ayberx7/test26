@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Mail, Phone, MapPin, Send, ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SoftAurora from './SoftAurora'; // Imported your new background effect
 
 export default function Contact() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -105,6 +106,26 @@ export default function Contact() {
   return (
     <section ref={sectionRef} id="contact" className="py-24 lg:py-32 relative overflow-hidden bg-[#020617]">
 
+      {/* --- SOFT AURORA BACKGROUND --- */}
+      <div className="absolute inset-0 z-0 opacity-80">
+        <SoftAurora
+          speed={1}
+          scale={2.4}
+          brightness={1}
+          color1="#193b71"
+          color2="#0011ff"
+          noiseFrequency={3}
+          noiseAmplitude={1}
+          bandHeight={0.45}
+          bandSpread={1.6}
+          octaveDecay={0.1}
+          layerOffset={0.2}
+          colorSpeed={1.8}
+          enableMouseInteraction={true}
+          mouseInfluence={0.1}
+        />
+      </div>
+
       {/* --- AMBIENT GLOWS --- */}
       <div ref={glowsRef} className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[120px] mix-blend-screen" />
@@ -116,51 +137,51 @@ export default function Contact() {
 
           {/* --- LEFT COLUMN: INFO --- */}
           <div ref={infoRef} className="flex flex-col">
-            <div className="w-12 h-1 bg-brand-accent rounded-full mb-8 shadow-[0_0_10px_rgba(var(--brand-accent-rgb),0.5)]" />
+            <div className="w-12 h-1 bg-[#00d2ff] rounded-full mb-8 shadow-[0_0_10px_rgba(0,210,255,0.5)]" />
 
             <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-6 tracking-tight">
               Connect with the <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-blue-400 italic pr-2">Concierge</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] to-blue-400 italic pr-2">Concierge</span>
             </h2>
 
-            <p className="text-slate-400 mb-12 text-lg md:text-xl font-light leading-relaxed max-w-md">
+            <p className="text-slate-300 mb-12 text-lg md:text-xl font-light leading-relaxed max-w-md">
               Have questions about our fleet or services? Our dedicated team is available 24/7 to orchestrate your next journey.
             </p>
 
             <div className="space-y-8">
               {/* Phone */}
               <div className="flex items-start gap-6 group cursor-pointer">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-accent shrink-0 group-hover:scale-110 group-hover:bg-brand-accent group-hover:text-[#020617] group-hover:shadow-[0_0_20px_rgba(var(--brand-accent-rgb),0.4)] transition-all duration-500">
+                <div className="w-14 h-14 rounded-2xl bg-[#0f172a]/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-[#00d2ff] shrink-0 group-hover:scale-110 group-hover:bg-[#00d2ff] group-hover:text-[#020617] group-hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all duration-500">
                   <Phone size={24} />
                 </div>
                 <div>
                   <h4 className="text-white font-display font-bold text-xl mb-1 tracking-wide">Direct Line</h4>
-                  <p className="text-brand-accent text-lg">+212 6 53 90 46 65</p>
-                  <p className="text-slate-500 text-sm font-semibold uppercase tracking-widest mt-1">Mon-Sun, 24/7</p>
+                  <p className="text-[#00d2ff] text-lg">+212 6 53 90 46 65</p>
+                  <p className="text-slate-400 text-sm font-semibold uppercase tracking-widest mt-1">Mon-Sun, 24/7</p>
                 </div>
               </div>
 
               {/* Email */}
               <div className="flex items-start gap-6 group cursor-pointer">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-accent shrink-0 group-hover:scale-110 group-hover:bg-brand-accent group-hover:text-[#020617] group-hover:shadow-[0_0_20px_rgba(var(--brand-accent-rgb),0.4)] transition-all duration-500">
+                <div className="w-14 h-14 rounded-2xl bg-[#0f172a]/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-[#00d2ff] shrink-0 group-hover:scale-110 group-hover:bg-[#00d2ff] group-hover:text-[#020617] group-hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all duration-500">
                   <Mail size={24} />
                 </div>
                 <div>
                   <h4 className="text-white font-display font-bold text-xl mb-1 tracking-wide">Email Us</h4>
-                  <p className="text-slate-300 group-hover:text-white transition-colors">ocationvoiture@gmail.com</p>
-                  <p className="text-slate-500 text-sm font-semibold uppercase tracking-widest mt-1">Response within 1 hour</p>
+                  <p className="text-slate-300 group-hover:text-white transition-colors">locationvoiture@gmail.com</p>
+                  <p className="text-slate-400 text-sm font-semibold uppercase tracking-widest mt-1">Response within 1 hour</p>
                 </div>
               </div>
 
               {/* Location */}
               <div className="flex items-start gap-6 group cursor-pointer">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-accent shrink-0 group-hover:scale-110 group-hover:bg-brand-accent group-hover:text-[#020617] group-hover:shadow-[0_0_20px_rgba(var(--brand-accent-rgb),0.4)] transition-all duration-500">
+                <div className="w-14 h-14 rounded-2xl bg-[#0f172a]/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-[#00d2ff] shrink-0 group-hover:scale-110 group-hover:bg-[#00d2ff] group-hover:text-[#020617] group-hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all duration-500">
                   <MapPin size={24} />
                 </div>
                 <div>
                   <h4 className="text-white font-display font-bold text-xl mb-1 tracking-wide">Headquarters</h4>
                   <p className="text-slate-300 group-hover:text-white transition-colors">Avenue UMP, Oujda</p>
-                  <p className="text-slate-500 text-sm font-semibold uppercase tracking-widest mt-1">Morocco, 60000</p>
+                  <p className="text-slate-400 text-sm font-semibold uppercase tracking-widest mt-1">Morocco, 60000</p>
                 </div>
               </div>
             </div>
@@ -168,14 +189,15 @@ export default function Contact() {
 
           {/* --- RIGHT COLUMN: FORM --- */}
           <div ref={formRef} className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/10 to-transparent rounded-[2rem] blur-xl transform translate-y-4 -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#00d2ff]/10 to-transparent rounded-[2rem] blur-xl transform translate-y-4 -z-10" />
 
-            <div className="bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 md:p-10 lg:p-12 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
+            {/* Added a slightly stronger background and backdrop-blur so the form is completely readable over the Aurora */}
+            <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-8 md:p-10 lg:p-12 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
               <form className="space-y-6" onSubmit={handleSubmit}>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Full Name</label>
                     <input
                       type="text"
                       name="fullName"
@@ -183,11 +205,11 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       placeholder="Ayoub El Idrissi"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent focus:bg-white/10 transition-all duration-300 placeholder:text-slate-600"
+                      className="w-full bg-[#020617]/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#00d2ff]/50 focus:border-[#00d2ff] transition-all duration-300 placeholder:text-slate-500"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email Address</label>
                     <input
                       type="email"
                       name="emailAddress"
@@ -195,31 +217,31 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       placeholder="ayoub@idrissi.com"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent focus:bg-white/10 transition-all duration-300 placeholder:text-slate-600"
+                      className="w-full bg-[#020617]/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#00d2ff]/50 focus:border-[#00d2ff] transition-all duration-300 placeholder:text-slate-500"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2 relative">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Subject</label>
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Subject</label>
                   <div className="relative group">
                     <select
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent focus:bg-white/10 transition-all duration-300 appearance-none cursor-pointer"
+                      className="w-full bg-[#020617]/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#00d2ff]/50 focus:border-[#00d2ff] transition-all duration-300 appearance-none cursor-pointer"
                     >
                       <option className="bg-slate-900 text-white" value="General Inquiry">General Inquiry</option>
                       <option className="bg-slate-900 text-white" value="Booking Question">Booking Question</option>
                       <option className="bg-slate-900 text-white" value="Corporate Partnership">Corporate Partnership</option>
                       <option className="bg-slate-900 text-white" value="Feedback">Feedback</option>
                     </select>
-                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-hover:text-brand-accent transition-colors" />
+                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-hover:text-[#00d2ff] transition-colors" />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Message</label>
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Message</label>
                   <textarea
                     rows={4}
                     name="message"
@@ -227,20 +249,19 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="How can we elevate your experience?"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent focus:bg-white/10 transition-all duration-300 resize-none placeholder:text-slate-600"
+                    className="w-full bg-[#020617]/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-4 text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#00d2ff]/50 focus:border-[#00d2ff] transition-all duration-300 resize-none placeholder:text-slate-500"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full relative overflow-hidden rounded-xl bg-white px-8 py-4 font-bold text-[#020617] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] group flex items-center justify-center gap-3 mt-4 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="w-full relative overflow-hidden rounded-xl bg-[#00d2ff] px-8 py-4 font-black tracking-widest uppercase text-sm text-[#020617] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,210,255,0.4)] group flex items-center justify-center gap-3 mt-4 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  {/* Diagonal Shine Effect */}
                   <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-150%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(150%)]">
                     <div className="relative h-full w-8 bg-white/40" />
                   </div>
-                  <span className="relative z-10 text-lg">
+                  <span className="relative z-10 text-sm">
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </span>
                   {!isSubmitting && <Send size={18} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}

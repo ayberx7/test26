@@ -1,9 +1,25 @@
 import React from 'react';
+import DarkVeil from './DarkVeil';
 
 const TermsOfService = () => {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-300 pt-32 pb-20 px-6">
-      <div className="max-w-4xl mx-auto">
+    // Outer wrapper holds the main background color
+    <div className="relative min-h-screen bg-[#020617] text-slate-300">
+      
+      {/* DarkVeil Background Effect (Fixed so it stays while scrolling) */}
+      <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
+        <DarkVeil
+          hueShift={24}
+          noiseIntensity={0}
+          scanlineIntensity={0.48}
+          speed={0.8}
+          scanlineFrequency={2}
+          warpAmount={0}
+        />
+      </div>
+
+      {/* Content Wrapper - Notice the background color is removed here so it's transparent! */}
+      <div className="relative z-10 pt-32 pb-20 px-6 max-w-4xl mx-auto">
 
         {/* Header */}
         <div className="mb-12">
@@ -129,7 +145,7 @@ const TermsOfService = () => {
         </section>
 
         {/* Contact Box */}
-        <div className="bg-white/5 border border-white/10 p-8 rounded-2xl mt-16">
+        <div className="bg-white/5 border border-white/10 p-8 rounded-2xl mt-16 backdrop-blur-sm">
           <h2 className="text-xl font-semibold text-white mb-4">Questions About These Terms?</h2>
           <p className="font-light text-slate-400 mb-4">
             If you have any questions or concerns regarding our Terms of Service, please reach out to us:

@@ -59,7 +59,7 @@ export default function Fleet() {
       <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
         <DarkVeil
           hueShift={24}
-          noiseIntensity={0.08}
+          noiseIntensity={0}
           scanlineIntensity={0.48}
           speed={0.8}
           scanlineFrequency={2}
