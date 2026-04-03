@@ -7,6 +7,7 @@ import os
 import sys
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
+from sqlalchemy import text
 
 # --- 1. ENVIRONMENT & ENCODING FIXES ---
 load_dotenv()
@@ -59,6 +60,9 @@ db.init_app(app)
 with app.app_context():
     try:
         db.create_all()
+        # Simple Migration: Add car_image column if it doesn't exist
+        db.session.execute(text("ALTER TABLE reservations ADD COLUMN IF NOT EXISTS car_image VARCHAR(500);"))
+        db.session.commit()
         print("--- LUXDRIVE BACKEND STATUS ---")
         print(f"Database: {database} connected successfully.")
         print("Tables verified: Users, Cars, Reservations.")
@@ -71,6 +75,11 @@ with app.app_context():
 def serve_avatar(filename):
     """Serves uploaded profile pictures so they appear in React."""
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/asset/<filename>')
+def serve_asset(filename):
+    """Serves car assets so they appear in React."""
+    return send_from_directory('../../asset', filename)
 
 # --- 7. AUTHENTICATION ROUTES ---
 
@@ -160,6 +169,70 @@ def get_cars():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/cars', methods=['POST'])
+def add_car():
+    data = request.json
+    try:
+        new_car = Car(
+            brand=data.get('brand'),
+            name=data.get('name'),
+            type=data.get('type'),
+            price_per_day=int(data.get('pricePerDay', 0)),
+            image_url=data.get('image'),
+            status=data.get('status', 'Available'),
+            seats=int(data.get('specs', {}).get('seats', 4)),
+            fuel=data.get('specs', {}).get('fuel', 'Petrol'),
+            transmission=data.get('specs', {}).get('transmission', 'Automatic'),
+            acceleration=data.get('specs', {}).get('acceleration', '0-100 in 3.0s')
+        )
+        db.session.add(new_car)
+        db.session.commit()
+        return jsonify(new_car.to_dict()), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to add car", "details": str(e)}), 500
+
+@app.route('/api/cars/<int:car_id>', methods=['PUT'])
+def update_car(car_id):
+    data = request.json
+    try:
+        car = Car.query.get(car_id)
+        if not car:
+            return jsonify({"error": "Car not found"}), 404
+        
+        car.brand = data.get('brand', car.brand)
+        car.name = data.get('name', car.name)
+        car.type = data.get('type', car.type)
+        car.price_per_day = int(data.get('pricePerDay', car.price_per_day))
+        car.image_url = data.get('image', car.image_url)
+        car.status = data.get('status', car.status)
+        
+        specs = data.get('specs', {})
+        car.seats = int(specs.get('seats', car.seats))
+        car.fuel = specs.get('fuel', car.fuel)
+        car.transmission = specs.get('transmission', car.transmission)
+        car.acceleration = specs.get('acceleration', car.acceleration)
+        
+        db.session.commit()
+        return jsonify(car.to_dict()), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to update car", "details": str(e)}), 500
+
+@app.route('/api/cars/<int:car_id>', methods=['DELETE'])
+def delete_car(car_id):
+    try:
+        car = Car.query.get(car_id)
+        if not car:
+            return jsonify({"error": "Car not found"}), 404
+        
+        db.session.delete(car)
+        db.session.commit()
+        return jsonify({"message": "Car deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to delete car", "details": str(e)}), 500
+
 @app.route('/api/reservations', methods=['GET'])
 def get_reservations():
     try:
@@ -167,6 +240,66 @@ def get_reservations():
         return jsonify([b.to_dict() for b in bookings])
     except Exception as e:
         return jsonify({"error": "Failed to fetch reservations"}), 500
+
+@app.route('/api/reservations', methods=['POST'])
+def create_reservation():
+    data = request.json
+    try:
+        # Generate a sequential ID: RES-1, RES-2, etc.
+        count = Reservation.query.count()
+        res_id = f"RES-{count + 1}"
+        
+        # Check if ID already exists (in case of deletions) and find next available
+        while Reservation.query.get(res_id):
+            count += 1
+            res_id = f"RES-{count + 1}"
+        
+        new_res = Reservation(
+            id=res_id,
+            car_name=data.get('carName'),
+            client_name=data.get('clientName'),
+            client_email=data.get('clientEmail'),
+            start_date=data.get('startDate'),
+            end_date=data.get('endDate'),
+            total_price=int(str(data.get('totalPrice')).replace('dh', '').replace(',', '')),
+            status="Pending",
+            car_image=data.get('carImage')
+        )
+        db.session.add(new_res)
+        db.session.commit()
+        return jsonify(new_res.to_dict()), 201
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error creating reservation: {str(e)}")
+        return jsonify({"error": "Failed to create reservation", "details": str(e)}), 500
+
+@app.route('/api/reservations/<string:res_id>', methods=['DELETE'])
+def delete_reservation(res_id):
+    try:
+        res = Reservation.query.get(res_id)
+        if not res:
+            return jsonify({"error": "Reservation not found"}), 404
+        
+        db.session.delete(res)
+        db.session.commit()
+        return jsonify({"message": "Reservation deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to delete reservation", "details": str(e)}), 500
+
+@app.route('/api/reservations/<string:res_id>/status', methods=['PUT'])
+def update_res_status(res_id):
+    data = request.json
+    try:
+        res = Reservation.query.get(res_id)
+        if res:
+            res.status = data.get('status')
+            db.session.commit()
+            return jsonify(res.to_dict()), 200
+        return jsonify({"error": "Not found"}), 404
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 # --- 10. CONTACT FORM EMAIL ---
 
