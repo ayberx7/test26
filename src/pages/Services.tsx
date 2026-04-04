@@ -107,7 +107,7 @@ const Services: React.FC = () => {
 
       {/* Navbar */}
       <div className="relative z-10">
-        <Navbar />
+        
       </div>
 
       <main className="flex-grow max-w-7xl mx-auto px-6 md:px-12 py-32 relative z-10">

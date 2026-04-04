@@ -138,10 +138,7 @@ const About: React.FC = () => {
       <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-blue-900/20 blur-[150px] rounded-full pointer-events-none z-0" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#00d2ff]/10 blur-[150px] rounded-full pointer-events-none z-0" />
 
-      {/* Navbar */}
-      <div className="relative z-10">
-        <Navbar />
-      </div>
+      
 
       <main className="flex-grow max-w-7xl mx-auto px-6 md:px-12 py-24 relative z-10">
         

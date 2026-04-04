@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Mail, Phone, MapPin, Send, ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SoftAurora from './SoftAurora'; // Imported your new background effect
+ // Imported your new background effect
 
 export default function Contact() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -105,26 +105,6 @@ export default function Contact() {
 
   return (
     <section ref={sectionRef} id="contact" className="py-24 lg:py-32 relative overflow-hidden bg-[#020617]">
-
-      {/* --- SOFT AURORA BACKGROUND --- */}
-      <div className="absolute inset-0 z-0 opacity-80">
-        <SoftAurora
-          speed={1}
-          scale={2.4}
-          brightness={1}
-          color1="#193b71"
-          color2="#0011ff"
-          noiseFrequency={3}
-          noiseAmplitude={1}
-          bandHeight={0.45}
-          bandSpread={1.6}
-          octaveDecay={0.1}
-          layerOffset={0.2}
-          colorSpeed={1.8}
-          enableMouseInteraction={true}
-          mouseInfluence={0.1}
-        />
-      </div>
 
       {/* --- AMBIENT GLOWS --- */}
       <div ref={glowsRef} className="absolute inset-0 pointer-events-none z-0">
