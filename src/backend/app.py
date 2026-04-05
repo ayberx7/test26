@@ -31,29 +31,28 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # --- 3. EMAIL CONFIGURATION (SMTP) ---
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME", "ocationvoiture@gmail.com")
-app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD", "ffes ncsx ybuv thiw")
+app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
+app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
 
 # --- 4. DATABASE CONFIGURATION (PostgreSQL) ---
-username = os.getenv("DB_USERNAME", "postgres")
-password = os.getenv("DB_PASSWORD", "123456789")
-database = os.getenv("DB_NAME", "test26_db")
-db_host = os.getenv("DB_HOST", "localhost")
-db_port = os.getenv("DB_PORT", "5432")
+username = os.getenv("DB_USERNAME")
+password = os.getenv("DB_PASSWORD")
+database = os.getenv("DB_NAME")
+db_host = os.getenv("DB_HOST")
+db_port = os.getenv("DB_PORT")
 
 # Encode password to handle special characters (@, #, etc.)
-encoded_password = urllib.parse.quote_plus(password)
+encoded_password = urllib.parse.quote_plus(password) if password else ""
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     f'postgresql://{username}:{encoded_password}@{db_host}:{db_port}/{database}'
     '?client_encoding=utf8'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "luxdrive-secure-key-2026")
-
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 db.init_app(app)
 
 # --- 5. DATABASE INITIALIZATION ---
